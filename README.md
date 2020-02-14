@@ -1,12 +1,12 @@
 ![remote-dev](img/undraw_shared_workspace_hwky.png)
 
-[![Gitter](https://badges.gitter.im/currofy/community.svg)](https://gitter.im/currofy/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge) <-- Talk to us 😀
+[![Gitter](https://badges.gitter.im/currofy/community.svg)](https://gitter.im/currofy/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 # Remote Dev
 
 Virtual Dev Environments over Visual Code for your remote teams
 
-Discuss: 
+Discuss:
 
 Remote Dev allow us to share different OS or/and application environments removing the need to install their components in our team's local machines.
 
@@ -27,6 +27,16 @@ In any case, the point is, _write once, run everywhere_
   If you are developing an application to run on containers you might want to develop directly over a container, closer to live environment
 
 ## Quick star guide
+
+### What we need - Installation
+
+**Local**
+
+- **Windows**. Docker Desktop 2.0 o superior in Windows 10 Pro/Ent. Docker Toolbox no supported.
+- **macOS**. Docker Desktop 2.0 o superior.
+- **Linux**. Docker CE/EE 18.06 o superior y Docker Compose 1.21 or superior.
+
+**Containers**. x86_64 Debian 8 or superior, Ubuntu 16.04 or superior, CentOS / RHEL 7 or superior, Containers based on Linux Alpine.
 
 ## Contributing guidelines
 
