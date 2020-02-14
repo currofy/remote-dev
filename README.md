@@ -1,10 +1,12 @@
 ![remote-dev](img/undraw_shared_workspace_hwky.png)
 
+[![Gitter](https://badges.gitter.im/currofy/community.svg)](https://gitter.im/currofy/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge) <-- Talk to us 😀
+
 # Remote Dev
 
 Virtual Dev Environments over Visual Code for your remote teams
 
-Discuss: [![Gitter](https://badges.gitter.im/currofy/community.svg)](https://gitter.im/currofy/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+Discuss: 
 
 Remote Dev allow us to share different OS or/and application environments removing the need to install their components in our team's local machines.
 
