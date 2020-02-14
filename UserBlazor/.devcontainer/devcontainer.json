@@ -1,0 +1,15 @@
+// See https://aka.ms/vscode-remote/devcontainer.json for format details.
+{
+    "name": "Remote with Telepresence Vas",
+    "dockerFile": "../Dockerfile",
+  
+    "runArgs": [
+      "--cap-add=NET_ADMIN", 
+      "--cap-add=NET_BIND_SERVICE",
+      "-v", "${env:USERPROFILE}/.kube:/kube/config"
+    ],
+
+    "extensions": [
+      "ms-vscode.csharp"
+    ]
+}

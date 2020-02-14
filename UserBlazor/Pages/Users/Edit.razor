@@ -1,0 +1,25 @@
+﻿@page "/users/edit/{userid:int}"
+
+@using UserBlazor.Data
+@inject UserWebServices UserServices
+@inject NavigationManager gNavManager
+
+<h3>Edit</h3>
+
+<UserForm ButtonText="Edit User" UserWeb="@gUser" OnValidSubmit="@UpdateUser" />
+
+@code {
+    [Parameter] public int UserId { get; set; }
+    UserWeb gUser = new UserWeb();
+
+    protected async override Task OnParametersSetAsync()
+    {
+        gUser = await UserServices.GetById(UserId);
+    }
+
+    async Task UpdateUser()
+    {
+        await UserServices.Update(gUser);
+        gNavManager.NavigateTo("users");
+    }
+}

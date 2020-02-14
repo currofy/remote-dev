@@ -1,0 +1,30 @@
+﻿@using UserBlazor.Data
+
+<EditForm Model="@UserWeb" OnValidSubmit="@OnValidSubmit">
+    <DataAnnotationsValidator />
+    <div class="form-field">
+        <label>Name:</label>
+        <div>
+            <InputText @bind-Value="@UserWeb.UserName" />
+            <ValidationMessage For="@(() => UserWeb.UserName)" />
+        </div>
+    </div>
+
+    <div class="form-field">
+        <label>Email:</label>
+        <div>
+            <InputText @bind-Value="@UserWeb.UserEmail" />
+            <ValidationMessage For="@(() => UserWeb.UserEmail)" />
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-success">
+        @ButtonText
+    </button>
+</EditForm>
+
+@code {
+    [Parameter] public UserWeb UserWeb { get; set; }
+    [Parameter] public string ButtonText { get; set; } = "Save User";
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+}

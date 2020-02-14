@@ -1,0 +1,19 @@
+﻿@page "/users/add"
+
+@using UserBlazor.Data
+@inject UserWebServices UserServices
+@inject NavigationManager gNavManager
+
+<h3>Add User</h3>
+
+<UserForm ButtonText="Add User" UserWeb="@vNewUser" OnValidSubmit="@AddUser" />
+
+@code {
+    UserWeb vNewUser = new UserWeb();
+
+    async Task AddUser()
+    {
+        await UserServices.AddUserWeb(vNewUser);
+        gNavManager.NavigateTo("users");
+    }
+}

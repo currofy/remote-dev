@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+option csharp_namespace = "UserServices";
+
+package Users;
+
+// Definicion de la estructura de Servicio UserRepo.
+service UserRepo {
+	rpc Add (User) returns (Nothing);
+	rpc Update (User) returns (Nothing);
+	rpc Delete (UserFilter) returns (Nothing);
+	rpc GetAll (Nothing) returns (Users);
+	rpc GetById (UserFilter) returns (User);
+}
+
+// Definicion de Mensaje con respuesta "vacia".
+message Nothing {
+
+}
+
+// Definicion de Mensaje de tipo User.
+message User {
+	int32 UserId = 1;
+	string UserName = 2;
+	string UserEMail = 3;
+}
+
+// Definicion de Mensaje de tipo Users.
+message Users {
+	repeated User records = 1;
+}
+
+// Definicion de Mensaje de tipo UserFilter que nos sirve como filtro de busqueda de Usuarios.
+message UserFilter {
+	int32 UserId = 1;
+}

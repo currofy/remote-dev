@@ -1,0 +1,573 @@
+   0.0 TEL | Telepresence 0.104 launched at Mon Feb 10 02:33:39 2020
+   0.0 TEL |   /usr/bin/telepresence --swap-deployment userblazor --expose 9001 --run-shell
+   0.0 TEL | uname: uname_result(system='Linux', node='64359f9951c3', release='4.19.76-linuxkit', version='#1 SMP Thu Oct 17 19:31:58 UTC 2019', machine='x86_64', processor='')
+   0.0 TEL | Platform: linux
+   0.0 TEL | WSL: False
+   0.0 TEL | Python 3.7.3 (default, Dec 20 2019, 18:57:59)
+   0.0 TEL | [GCC 8.3.0]
+   0.0 TEL | BEGIN SPAN main.py:40(main)
+   0.0 TEL | BEGIN SPAN startup.py:83(set_kube_command)
+   0.0 TEL | Found kubectl -> /usr/bin/kubectl
+   0.0 TEL | [1] Capturing: kubectl config current-context
+   0.1 TEL | [1] captured in 0.05 secs.
+   0.1 TEL | [2] Capturing: kubectl --context docker-desktop version --short
+   0.1 TEL | [2] captured in 0.07 secs.
+   0.1 TEL | [3] Capturing: kubectl --context docker-desktop config view -o json
+   0.2 TEL | [3] captured in 0.05 secs.
+   0.2 TEL | [4] Capturing: kubectl --context docker-desktop get ns default
+   0.5 TEL | [4] captured in 0.29 secs.
+   0.5 TEL | [5] Capturing: kubectl --context docker-desktop api-versions
+   0.6 TEL | [5] captured in 0.07 secs.
+   0.6 TEL | Command: kubectl 1.17.2
+   0.6 TEL | Context: docker-desktop, namespace: default, version: 1.15.5
+   0.6 TEL | Looks like we're in a local VM, e.g. minikube.
+   0.6 TEL | Warning: kubectl 1.17.2 may not work correctly with cluster version 1.15.5 due to the version discrepancy. See https://kubernetes.io/docs/setup/version-skew-policy/ for more information.
+   0.6 TEL | END SPAN startup.py:83(set_kube_command)    0.5s
+   0.6 TEL | Found ssh -> /usr/bin/ssh
+   0.6 TEL | [6] Capturing: ssh -V
+   0.6 TEL | [6] captured in 0.00 secs.
+   0.6 TEL | Found bash -> /bin/bash
+   0.6 TEL | Found sshuttle-telepresence -> /usr/libexec/sshuttle-telepresence
+   0.6 TEL | Found conntrack -> /usr/sbin/conntrack
+   0.6 TEL | Found iptables -> /usr/sbin/iptables
+   0.6 TEL | Found sudo -> /usr/bin/sudo
+   0.6 TEL | [7] Running: sudo -n echo -n
+   0.6 TEL | [7] ran in 0.01 secs.
+   0.6 TEL | [8] Capturing: sudo iptables --list
+   0.6 TEL | [8] captured in 0.01 secs.
+   0.6 >>> | Starting proxy with method 'vpn-tcp', which has the following limitations: All processes are affected, only one telepresence can run per machine, and you can't use other VPNs. You may need to add cloud hosts and headless services with --also-proxy. For a full list of method limitations see https://telepresence.io/reference/methods.html
+   0.6 TEL | Found sshfs -> /usr/bin/sshfs
+   0.6 TEL | Found fusermount -> /bin/fusermount
+   0.6 >>> | Volumes are rooted at $TELEPRESENCE_ROOT. See https://telepresence.io/howto/volumes.html for details.
+   0.6 TEL | [9] Running: kubectl --context docker-desktop --namespace default get pods telepresence-connectivity-check --ignore-not-found
+   0.7 TEL | [9] ran in 0.07 secs.
+   6.4 TEL | Scout info: {'latest_version': '0.104', 'application': 'telepresence', 'notices': []}
+   6.4 TEL | BEGIN SPAN deployment.py:193(supplant_deployment)
+   6.4 >>> | Starting network proxy to cluster by swapping out Deployment userblazor with a proxy
+   6.4 TEL | BEGIN SPAN remote.py:75(get_deployment_json)
+   6.4 TEL | [10] Capturing: kubectl --context docker-desktop --namespace default get deployment -o json userblazor
+   6.5 TEL | [10] captured in 0.08 secs.
+   6.5 TEL | END SPAN remote.py:75(get_deployment_json)    0.1s
+   6.5 TEL | [11] Running: kubectl --context docker-desktop --namespace default delete deployment userblazor-9d820bb9bb6e445e94b31e4d4491eac9 --ignore-not-found
+   6.6 TEL | [11] ran in 0.09 secs.
+   6.6 TEL | [12] Running: kubectl --context docker-desktop --namespace default apply -f -
+   6.7  12 | deployment.extensions/userblazor-9d820bb9bb6e445e94b31e4d4491eac9 created
+   6.7 TEL | [12] ran in 0.13 secs.
+   6.7 TEL | [13] Running: kubectl --context docker-desktop --namespace default scale deployment userblazor --replicas=0
+   6.8  13 | deployment.extensions/userblazor scaled
+   6.8 TEL | [13] ran in 0.07 secs.
+   6.8 TEL | END SPAN deployment.py:193(supplant_deployment)    0.4s
+   6.8 TEL | BEGIN SPAN remote.py:142(get_remote_info)
+   6.8 TEL | BEGIN SPAN remote.py:75(get_deployment_json)
+   6.8 TEL | [14] Capturing: kubectl --context docker-desktop --namespace default get deployment -o json --selector=telepresence=9d820bb9bb6e445e94b31e4d4491eac9
+   6.9 TEL | [14] captured in 0.10 secs.
+   6.9 TEL | END SPAN remote.py:75(get_deployment_json)    0.1s
+   6.9 TEL | Searching for Telepresence pod:
+   6.9 TEL |   with name userblazor-9d820bb9bb6e445e94b31e4d4491eac9-*
+   6.9 TEL |   with labels {'app': 'userblazor', 'telepresence': '9d820bb9bb6e445e94b31e4d4491eac9', 'tier': 'frontend', 'track': 'stable'}
+   6.9 TEL | [15] Capturing: kubectl --context docker-desktop --namespace default get pod -o json --selector=telepresence=9d820bb9bb6e445e94b31e4d4491eac9
+   7.0 TEL | [15] captured in 0.08 secs.
+   7.0 TEL | Checking userblazor-9d820bb9bb6e445e94b31e4d4491eac9-5c9b9bb79c-zkvzk
+   7.0 TEL | Looks like we've found our pod!
+   7.0 TEL | BEGIN SPAN remote.py:104(wait_for_pod)
+   7.0 TEL | [16] Capturing: kubectl --context docker-desktop --namespace default get pod userblazor-9d820bb9bb6e445e94b31e4d4491eac9-5c9b9bb79c-zkvzk -o json
+   7.1 TEL | [16] captured in 0.07 secs.
+   7.3 TEL | [17] Capturing: kubectl --context docker-desktop --namespace default get pod userblazor-9d820bb9bb6e445e94b31e4d4491eac9-5c9b9bb79c-zkvzk -o json
+   7.4 TEL | [17] captured in 0.07 secs.
+   7.6 TEL | [18] Capturing: kubectl --context docker-desktop --namespace default get pod userblazor-9d820bb9bb6e445e94b31e4d4491eac9-5c9b9bb79c-zkvzk -o json
+   7.7 TEL | [18] captured in 0.07 secs.
+   7.7 TEL | END SPAN remote.py:104(wait_for_pod)    0.7s
+   7.7 TEL | END SPAN remote.py:142(get_remote_info)    0.9s
+   7.7 TEL | BEGIN SPAN connect.py:37(connect)
+   7.7 TEL | [19] Launching kubectl logs: kubectl --context docker-desktop --namespace default logs -f userblazor-9d820bb9bb6e445e94b31e4d4491eac9-5c9b9bb79c-zkvzk --container userblazor --tail=10
+   7.7 TEL | [20] Launching kubectl port-forward: kubectl --context docker-desktop --namespace default port-forward userblazor-9d820bb9bb6e445e94b31e4d4491eac9-5c9b9bb79c-zkvzk 38469:8022
+   7.7 TEL | [21] Running: ssh -F /dev/null -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -q -p 38469 telepresence@127.0.0.1 /bin/true
+   7.7 TEL | [21] exit 255 in 0.01 secs.
+   7.8  20 | Forwarding from 127.0.0.1:38469 -> 8022
+   7.9  19 | Retrieving this pod's namespace from the process environment
+   7.9  19 | Pod's namespace is 'default'
+   7.9  19 | Listening...
+   7.9  19 | 2020-02-10T02:33:47+0000 [-] Loading ./forwarder.py...
+   7.9  19 | 2020-02-10T02:33:47+0000 [-] SOCKSv5Factory starting on 9050
+   7.9  19 | 2020-02-10T02:33:47+0000 [socks.SOCKSv5Factory#info] Starting factory <socks.SOCKSv5Factory object at 0x7f4941b78c18>
+   7.9  19 | 2020-02-10T02:33:47+0000 [-] DNSDatagramProtocol starting on 9053
+   7.9  19 | 2020-02-10T02:33:47+0000 [-] Starting protocol <twisted.names.dns.DNSDatagramProtocol object at 0x7f4941b78eb8>
+   7.9  19 | 2020-02-10T02:33:47+0000 [-] Loaded.
+   7.9  19 | 2020-02-10T02:33:47+0000 [twisted.scripts._twistd_unix.UnixAppLogger#info] twistd 19.10.0 (/usr/bin/python3.6 3.6.8) starting up.
+   7.9  19 | 2020-02-10T02:33:47+0000 [twisted.scripts._twistd_unix.UnixAppLogger#info] reactor class: twisted.internet.epollreactor.EPollReactor.
+   8.0 TEL | [22] Running: ssh -F /dev/null -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -q -p 38469 telepresence@127.0.0.1 /bin/true
+   8.0  20 | Handling connection for 38469
+   8.1 TEL | [22] ran in 0.12 secs.
+   8.1 >>> | Forwarding remote port 9001 to local port 9001.
+   8.1 TEL | [23] Launching SSH port forward (exposed ports): ssh -N -oServerAliveInterval=1 -oServerAliveCountMax=10 -F /dev/null -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -q -p 38469 telepresence@127.0.0.1 -R '*:9001:127.0.0.1:9001'
+   8.1 >>> | 
+   8.1  20 | Handling connection for 38469
+   8.1 TEL | Launching Web server for proxy poll
+   8.1 TEL | [24] Launching SSH port forward (socks and proxy poll): ssh -N -oServerAliveInterval=1 -oServerAliveCountMax=10 -F /dev/null -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -q -p 38469 telepresence@127.0.0.1 -L127.0.0.1:42983:127.0.0.1:9050 -R9055:127.0.0.1:35091
+   8.1 TEL | END SPAN connect.py:37(connect)    0.4s
+   8.1 TEL | BEGIN SPAN remote_env.py:29(get_remote_env)
+   8.1 TEL | [25] Capturing: kubectl --context docker-desktop --namespace default exec userblazor-9d820bb9bb6e445e94b31e4d4491eac9-5c9b9bb79c-zkvzk --container userblazor -- python3 podinfo.py
+   8.1  20 | Handling connection for 38469
+   8.3 TEL | [25] captured in 0.17 secs.
+   8.3 TEL | END SPAN remote_env.py:29(get_remote_env)    0.2s
+   8.3 TEL | BEGIN SPAN mount.py:30(mount_remote_volumes)
+   8.3 TEL | [26] Running: sshfs -p 38469 -F /dev/null -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null telepresence@127.0.0.1:/ /tmp/tel-4zaupvzy/fs
+   8.3  26 | fuse: device not found, try 'modprobe fuse' first
+   8.3 TEL | [26] exit 1 in 0.00 secs.
+   8.3 >>> | Mounting remote volumes failed, they will be unavailable in this session. If you are running on Windows Subystem for Linux then see https://github.com/datawire/telepresence/issues/115, otherwise please report a bug, attaching telepresence.log to the bug report: https://github.com/datawire/telepresence/issues/new
+   8.3 >>> | 
+   8.3 >>> | Mount error was: fuse: device not found, try 'modprobe fuse' first
+   8.3 TEL | END SPAN mount.py:30(mount_remote_volumes)    0.0s
+   8.3 TEL | BEGIN SPAN vpn.py:271(connect_sshuttle)
+   8.3 TEL | BEGIN SPAN vpn.py:77(get_proxy_cidrs)
+   8.3 TEL | [27] Capturing: kubectl --context docker-desktop --namespace default get nodes -o json
+   8.4 TEL | [27] captured in 0.07 secs.
+   8.4 TEL | [28] Capturing: kubectl --context docker-desktop --namespace default get pods -o json
+   8.4 TEL | [28] captured in 0.06 secs.
+   8.4 TEL | [29] Capturing: kubectl --context docker-desktop --namespace default get services -o json
+   8.5 TEL | [29] captured in 0.07 secs.
+   8.5 TEL | [30] Running: kubectl --context docker-desktop --namespace default create service clusterip telepresence-1581302028-259126-1502 --tcp=3000
+   8.6  30 | service/telepresence-1581302028-259126-1502 created
+   8.6 TEL | [30] ran in 0.07 secs.
+   8.6 TEL | [31] Running: kubectl --context docker-desktop --namespace default create service clusterip telepresence-1581302028-3336225-1502 --tcp=3000
+   8.6  31 | service/telepresence-1581302028-3336225-1502 created
+   8.6 TEL | [31] ran in 0.07 secs.
+   8.7 TEL | [32] Running: kubectl --context docker-desktop --namespace default create service clusterip telepresence-1581302028-4024286-1502 --tcp=3000
+   8.7  32 | service/telepresence-1581302028-4024286-1502 created
+   8.7 TEL | [32] ran in 0.07 secs.
+   8.7 TEL | [33] Running: kubectl --context docker-desktop --namespace default create service clusterip telepresence-1581302028-4746337-1502 --tcp=3000
+   8.8  33 | service/telepresence-1581302028-4746337-1502 created
+   8.8 TEL | [33] ran in 0.07 secs.
+   8.8 TEL | [34] Running: kubectl --context docker-desktop --namespace default create service clusterip telepresence-1581302028-5431204-1502 --tcp=3000
+   8.9  34 | service/telepresence-1581302028-5431204-1502 created
+   8.9 TEL | [34] ran in 0.07 secs.
+   8.9 TEL | [35] Capturing: kubectl --context docker-desktop --namespace default get services -o json
+   8.9 TEL | [35] captured in 0.07 secs.
+   8.9 TEL | [36] Running: kubectl --context docker-desktop --namespace default delete service telepresence-1581302028-259126-1502
+   9.0  36 | service "telepresence-1581302028-259126-1502" deleted
+   9.0 TEL | [36] ran in 0.07 secs.
+   9.0 TEL | [37] Running: kubectl --context docker-desktop --namespace default delete service telepresence-1581302028-3336225-1502
+   9.1  37 | service "telepresence-1581302028-3336225-1502" deleted
+   9.1 TEL | [37] ran in 0.08 secs.
+   9.1 TEL | [38] Running: kubectl --context docker-desktop --namespace default delete service telepresence-1581302028-4024286-1502
+   9.2  38 | service "telepresence-1581302028-4024286-1502" deleted
+   9.2 TEL | [38] ran in 0.08 secs.
+   9.2 TEL | [39] Running: kubectl --context docker-desktop --namespace default delete service telepresence-1581302028-4746337-1502
+   9.2  39 | service "telepresence-1581302028-4746337-1502" deleted
+   9.2 TEL | [39] ran in 0.08 secs.
+   9.2 TEL | [40] Running: kubectl --context docker-desktop --namespace default delete service telepresence-1581302028-5431204-1502
+   9.3  40 | service "telepresence-1581302028-5431204-1502" deleted
+   9.3 TEL | [40] ran in 0.07 secs.
+   9.3 >>> | Guessing that Services IP range is 10.96.0.0/12. Services started after this point will be inaccessible if are outside this range; restart telepresence if you can't access a new Service.
+   9.3 TEL | END SPAN vpn.py:77(get_proxy_cidrs)    1.0s
+   9.3 TEL | [41] Launching sshuttle: sshuttle-telepresence -v --dns --method nat -e 'ssh -F /dev/null -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null' -r telepresence@127.0.0.1:38469 --to-ns 127.0.0.1:9053 10.96.0.0/12 10.1.0.0/24
+   9.3 TEL | BEGIN SPAN vpn.py:294(connect_sshuttle,sshuttle-wait)
+   9.3 TEL | Wait for vpn-tcp connection: hellotelepresence-0
+   9.3 TEL | [42] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-0")'
+   9.7  41 | Starting sshuttle proxy.
+  10.0  41 | firewall manager: Starting firewall with Python version 3.7.3
+  10.0  41 | firewall manager: ready method name nat.
+  10.0  41 | IPv6 enabled: False
+  10.0  41 | UDP enabled: False
+  10.0  41 | DNS enabled: True
+  10.0  41 | TCP redirector listening on ('127.0.0.1', 12300).
+  10.0  41 | DNS listening on ('127.0.0.1', 12300).
+  10.0  41 | Starting client with Python version 3.7.3
+  10.0  41 | c : connecting to server...
+  10.0  20 | Handling connection for 38469
+  10.1  41 | Warning: Permanently added '[127.0.0.1]:38469' (ECDSA) to the list of known hosts.
+  10.2  41 | Starting server with Python version 3.6.8
+  10.2  41 |  s: latency control setting = True
+  10.2  41 |  s: available routes:
+  10.2  41 |  s:   2/10.1.0.0/16
+  10.2  41 | c : Connected.
+  10.2  41 | firewall manager: setting up.
+  10.2  41 | >> iptables -t nat -N sshuttle-12300
+  10.2  41 | >> iptables -t nat -F sshuttle-12300
+  10.3  41 | >> iptables -t nat -I OUTPUT 1 -j sshuttle-12300
+  10.3  41 | >> iptables -t nat -I PREROUTING 1 -j sshuttle-12300
+  10.3  41 | >> iptables -t nat -A sshuttle-12300 -j RETURN --dest 127.0.0.1/32 -p tcp
+  10.3  41 | >> iptables -t nat -A sshuttle-12300 -j REDIRECT --dest 10.1.0.0/24 -p tcp --to-ports 12300 -m ttl ! --ttl 42
+  10.3  41 | >> iptables -t nat -A sshuttle-12300 -j REDIRECT --dest 10.96.0.0/12 -p tcp --to-ports 12300 -m ttl ! --ttl 42
+  10.3  41 | >> iptables -t nat -A sshuttle-12300 -j REDIRECT --dest 192.168.65.1/32 -p udp --dport 53 --to-ports 12300 -m ttl ! --ttl 42
+  10.3  41 | >> iptables -t nat -A sshuttle-12300 -j REDIRECT --dest 224.0.0.252/32 -p udp --dport 5355 --to-ports 12300 -m ttl ! --ttl 42
+  10.3  41 | conntrack v1.4.5 (conntrack-tools): 0 flow entries have been deleted.
+  10.3 TEL | [42] exit 1 in 0.98 secs.
+  10.3 TEL | [43] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-0.a.sanity.check.telepresence.io")'
+  10.3  41 | c : DNS request from ('172.17.0.2', 52858) to None: 68 bytes
+  10.3  19 | 2020-02-10T02:33:50+0000 [stdout#info] Sanity check: b'hellotelepresence-0.a.sanity.check.telepresence.io'
+  10.3 TEL | [43] exit 1 in 0.03 secs.
+  10.4 TEL | Wait for vpn-tcp connection: hellotelepresence-1
+  10.4 TEL | [44] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-1")'
+  10.5  41 | c : DNS request from ('172.17.0.2', 46623) to None: 37 bytes
+  10.5  19 | 2020-02-10T02:33:50+0000 [stdout#info] Set DNS suffix we filter out to: [()]
+  10.5  19 | 2020-02-10T02:33:50+0000 [stdout#info] Result for b'hellotelepresence-1' is ['127.0.0.1']
+  10.5 TEL | [44] captured in 0.04 secs.
+  10.5 TEL | Resolved hellotelepresence-1. 2 more...
+  10.5 TEL | [45] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-1.a.sanity.check.telepresence.io")'
+  10.5  41 | c : DNS request from ('172.17.0.2', 37720) to None: 68 bytes
+  10.5  19 | 2020-02-10T02:33:50+0000 [stdout#info] Sanity check: b'hellotelepresence-1.a.sanity.check.telepresence.io'
+  10.5 TEL | [45] exit 1 in 0.03 secs.
+  10.6 TEL | Wait for vpn-tcp connection: hellotelepresence-2
+  10.6 TEL | [46] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-2")'
+  10.6  41 | c : DNS request from ('172.17.0.2', 55375) to None: 37 bytes
+  10.6  19 | 2020-02-10T02:33:50+0000 [stdout#info] Result for b'hellotelepresence-2' is ['127.0.0.1']
+  10.6 TEL | [46] captured in 0.03 secs.
+  10.6 TEL | Resolved hellotelepresence-2. 1 more...
+  10.6 TEL | [47] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-2.a.sanity.check.telepresence.io")'
+  10.7  41 | c : DNS request from ('172.17.0.2', 35495) to None: 68 bytes
+  10.7  19 | 2020-02-10T02:33:50+0000 [stdout#info] Sanity check: b'hellotelepresence-2.a.sanity.check.telepresence.io'
+  10.7 TEL | [47] exit 1 in 0.03 secs.
+  10.8 TEL | Wait for vpn-tcp connection: hellotelepresence-3
+  10.8 TEL | [48] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-3")'
+  10.8  41 | c : DNS request from ('172.17.0.2', 39962) to None: 37 bytes
+  10.8  19 | 2020-02-10T02:33:50+0000 [stdout#info] Result for b'hellotelepresence-3' is ['127.0.0.1']
+  10.8 TEL | [48] captured in 0.03 secs.
+  10.8 TEL | Resolved hellotelepresence-3. 0 more...
+  10.8 TEL | END SPAN vpn.py:294(connect_sshuttle,sshuttle-wait)    1.5s
+  10.8 TEL | END SPAN vpn.py:271(connect_sshuttle)    2.5s
+  10.8 >>> | Setup complete. Launching your command.
+  10.8 TEL | Everything launched. Waiting to exit...
+  10.8 TEL | BEGIN SPAN runner.py:725(wait_for_exit)
+  30.6 TEL | [49] Running: sudo -n echo -n
+  30.6 TEL | [49] ran in 0.01 secs.
+  37.9 TEL | (proxy checking local liveness)
+  37.9  19 | 2020-02-10T02:34:17+0000 [Poll#info] Checkpoint
+  60.7 TEL | [50] Running: sudo -n echo -n
+  60.7 TEL | [50] ran in 0.01 secs.
+  67.9 TEL | (proxy checking local liveness)
+  67.9  19 | 2020-02-10T02:34:47+0000 [Poll#info] Checkpoint
+  86.7  41 | c : DNS request from ('172.17.0.2', 43909) to None: 43 bytes
+  86.7  19 | 2020-02-10T02:35:06+0000 [stdout#info] A query: b'vortex.data.microsoft.com'
+  86.7  19 | 2020-02-10T02:35:06+0000 [DNSDatagramProtocol (UDP)] DNSDatagramProtocol starting on 54186
+  86.7  19 | 2020-02-10T02:35:06+0000 [DNSDatagramProtocol (UDP)] Starting protocol <twisted.names.dns.DNSDatagramProtocol object at 0x7f4941b25128>
+  86.7  19 | 2020-02-10T02:35:06+0000 [-] (UDP Port 54186 Closed)
+  86.7  19 | 2020-02-10T02:35:06+0000 [-] Stopping protocol <twisted.names.dns.DNSDatagramProtocol object at 0x7f4941b25128>
+  90.7 TEL | [51] Running: sudo -n echo -n
+  90.7 TEL | [51] ran in 0.01 secs.
+  97.9 TEL | (proxy checking local liveness)
+  97.9  19 | 2020-02-10T02:35:17+0000 [Poll#info] Checkpoint
+ 120.8 TEL | [52] Running: sudo -n echo -n
+ 120.8 TEL | [52] ran in 0.01 secs.
+ 127.9 TEL | (proxy checking local liveness)
+ 127.9  19 | 2020-02-10T02:35:47+0000 [Poll#info] Checkpoint
+ 150.8 TEL | [53] Running: sudo -n echo -n
+ 150.8 TEL | [53] ran in 0.01 secs.
+ 157.9 TEL | (proxy checking local liveness)
+ 157.9  19 | 2020-02-10T02:36:17+0000 [Poll#info] Checkpoint
+ 180.9 TEL | [54] Running: sudo -n echo -n
+ 180.9 TEL | [54] ran in 0.01 secs.
+ 187.9 TEL | (proxy checking local liveness)
+ 187.9  19 | 2020-02-10T02:36:47+0000 [Poll#info] Checkpoint
+ 206.7  41 | c : DNS request from ('172.17.0.2', 59928) to None: 43 bytes
+ 206.7  19 | 2020-02-10T02:37:06+0000 [stdout#info] A query: b'vortex.data.microsoft.com'
+ 206.7  19 | 2020-02-10T02:37:06+0000 [DNSDatagramProtocol (UDP)] DNSDatagramProtocol starting on 4828
+ 206.7  19 | 2020-02-10T02:37:06+0000 [DNSDatagramProtocol (UDP)] Starting protocol <twisted.names.dns.DNSDatagramProtocol object at 0x7f4941b2f3c8>
+ 206.7  19 | 2020-02-10T02:37:06+0000 [-] (UDP Port 4828 Closed)
+ 206.7  19 | 2020-02-10T02:37:06+0000 [-] Stopping protocol <twisted.names.dns.DNSDatagramProtocol object at 0x7f4941b2f3c8>
+ 210.9 TEL | [55] Running: sudo -n echo -n
+ 210.9 TEL | [55] ran in 0.01 secs.
+ 217.9 TEL | (proxy checking local liveness)
+ 217.9  19 | 2020-02-10T02:37:17+0000 [Poll#info] Checkpoint
+ 241.0 TEL | [56] Running: sudo -n echo -n
+ 241.0 TEL | [56] ran in 0.01 secs.
+ 247.9 TEL | (proxy checking local liveness)
+ 247.9  19 | 2020-02-10T02:37:47+0000 [Poll#info] Checkpoint
+ 271.0 TEL | [57] Running: sudo -n echo -n
+ 271.0 TEL | [57] ran in 0.01 secs.
+ 277.9 TEL | (proxy checking local liveness)
+ 277.9  19 | 2020-02-10T02:38:17+0000 [Poll#info] Checkpoint
+ 301.0 TEL | [58] Running: sudo -n echo -n
+ 301.0 TEL | [58] ran in 0.01 secs.
+ 307.9 TEL | (proxy checking local liveness)
+ 307.9  19 | 2020-02-10T02:38:47+0000 [Poll#info] Checkpoint
+ 326.7  41 | c : DNS request from ('172.17.0.2', 51880) to None: 43 bytes
+ 326.7  19 | 2020-02-10T02:39:06+0000 [stdout#info] A query: b'vortex.data.microsoft.com'
+ 326.7  19 | 2020-02-10T02:39:06+0000 [DNSDatagramProtocol (UDP)] DNSDatagramProtocol starting on 54478
+ 326.7  19 | 2020-02-10T02:39:06+0000 [DNSDatagramProtocol (UDP)] Starting protocol <twisted.names.dns.DNSDatagramProtocol object at 0x7f4941b25828>
+ 326.7  19 | 2020-02-10T02:39:06+0000 [-] (UDP Port 54478 Closed)
+ 326.7  19 | 2020-02-10T02:39:06+0000 [-] Stopping protocol <twisted.names.dns.DNSDatagramProtocol object at 0x7f4941b25828>
+ 331.1 TEL | [59] Running: sudo -n echo -n
+ 331.1 TEL | [59] ran in 0.00 secs.
+ 337.9 TEL | (proxy checking local liveness)
+ 337.9  19 | 2020-02-10T02:39:17+0000 [Poll#info] Checkpoint
+ 359.6  41 | c : DNS request from ('172.17.0.2', 41695) to None: 46 bytes
+ 359.6  19 | 2020-02-10T02:39:39+0000 [stdout#info] A query: b'dc.services.visualstudio.com'
+ 359.6  19 | 2020-02-10T02:39:39+0000 [DNSDatagramProtocol (UDP)] DNSDatagramProtocol starting on 35792
+ 359.6  19 | 2020-02-10T02:39:39+0000 [DNSDatagramProtocol (UDP)] Starting protocol <twisted.names.dns.DNSDatagramProtocol object at 0x7f4941b256d8>
+ 359.7  19 | 2020-02-10T02:39:39+0000 [-] (UDP Port 35792 Closed)
+ 359.7  19 | 2020-02-10T02:39:39+0000 [-] Stopping protocol <twisted.names.dns.DNSDatagramProtocol object at 0x7f4941b256d8>
+ 361.1 TEL | [60] Running: sudo -n echo -n
+ 361.1 TEL | [60] ran in 0.01 secs.
+ 367.9 TEL | (proxy checking local liveness)
+ 367.9  19 | 2020-02-10T02:39:47+0000 [Poll#info] Checkpoint
+ 391.2 TEL | [61] Running: sudo -n echo -n
+ 391.2 TEL | [61] ran in 0.01 secs.
+ 397.9 TEL | (proxy checking local liveness)
+ 397.9  19 | 2020-02-10T02:40:17+0000 [Poll#info] Checkpoint
+ 421.2 TEL | [62] Running: sudo -n echo -n
+ 421.2 TEL | [62] ran in 0.00 secs.
+ 427.9 TEL | (proxy checking local liveness)
+ 427.9  19 | 2020-02-10T02:40:47+0000 [Poll#info] Checkpoint
+ 446.7  41 | c : DNS request from ('172.17.0.2', 57683) to None: 43 bytes
+ 446.7  19 | 2020-02-10T02:41:06+0000 [stdout#info] A query: b'vortex.data.microsoft.com'
+ 446.7  19 | 2020-02-10T02:41:06+0000 [DNSDatagramProtocol (UDP)] DNSDatagramProtocol starting on 49549
+ 446.7  19 | 2020-02-10T02:41:06+0000 [DNSDatagramProtocol (UDP)] Starting protocol <twisted.names.dns.DNSDatagramProtocol object at 0x7f4941b357b8>
+ 446.8  19 | 2020-02-10T02:41:06+0000 [-] (UDP Port 49549 Closed)
+ 446.8  19 | 2020-02-10T02:41:06+0000 [-] Stopping protocol <twisted.names.dns.DNSDatagramProtocol object at 0x7f4941b357b8>
+ 451.3 TEL | [63] Running: sudo -n echo -n
+ 451.3 TEL | [63] ran in 0.01 secs.
+ 457.9 TEL | (proxy checking local liveness)
+ 457.9  19 | 2020-02-10T02:41:17+0000 [Poll#info] Checkpoint
+ 481.3 TEL | [64] Running: sudo -n echo -n
+ 481.3 TEL | [64] ran in 0.01 secs.
+ 487.9 TEL | (proxy checking local liveness)
+ 487.9  19 | 2020-02-10T02:41:47+0000 [Poll#info] Checkpoint
+ 511.3 TEL | [65] Running: sudo -n echo -n
+ 511.3 TEL | [65] ran in 0.01 secs.
+ 517.9 TEL | (proxy checking local liveness)
+ 517.9  19 | 2020-02-10T02:42:17+0000 [Poll#info] Checkpoint
+ 541.4 TEL | [66] Running: sudo -n echo -n
+ 541.4 TEL | [66] ran in 0.01 secs.
+ 547.9 TEL | (proxy checking local liveness)
+ 547.9  19 | 2020-02-10T02:42:47+0000 [Poll#info] Checkpoint
+ 566.7  41 | c : DNS request from ('172.17.0.2', 35068) to None: 43 bytes
+ 566.7  19 | 2020-02-10T02:43:06+0000 [stdout#info] A query: b'vortex.data.microsoft.com'
+ 566.7  19 | 2020-02-10T02:43:06+0000 [DNSDatagramProtocol (UDP)] DNSDatagramProtocol starting on 62379
+ 566.7  19 | 2020-02-10T02:43:06+0000 [DNSDatagramProtocol (UDP)] Starting protocol <twisted.names.dns.DNSDatagramProtocol object at 0x7f4941b1aac8>
+ 566.7  19 | 2020-02-10T02:43:06+0000 [-] (UDP Port 62379 Closed)
+ 566.7  19 | 2020-02-10T02:43:06+0000 [-] Stopping protocol <twisted.names.dns.DNSDatagramProtocol object at 0x7f4941b1aac8>
+ 571.5 TEL | [67] Running: sudo -n echo -n
+ 571.5 TEL | [67] ran in 0.00 secs.
+ 577.9 TEL | (proxy checking local liveness)
+ 577.9  19 | 2020-02-10T02:43:17+0000 [Poll#info] Checkpoint
+ 601.5 TEL | [68] Running: sudo -n echo -n
+ 601.5 TEL | [68] ran in 0.00 secs.
+ 607.9 TEL | (proxy checking local liveness)
+ 607.9  19 | 2020-02-10T02:43:47+0000 [Poll#info] Checkpoint
+ 631.6 TEL | [69] Running: sudo -n echo -n
+ 631.6 TEL | [69] ran in 0.01 secs.
+ 637.9 TEL | (proxy checking local liveness)
+ 637.9  19 | 2020-02-10T02:44:17+0000 [Poll#info] Checkpoint
+ 661.6 TEL | [70] Running: sudo -n echo -n
+ 661.6 TEL | [70] ran in 0.01 secs.
+ 667.9 TEL | (proxy checking local liveness)
+ 667.9  19 | 2020-02-10T02:44:47+0000 [Poll#info] Checkpoint
+ 686.7  41 | c : DNS request from ('172.17.0.2', 43564) to None: 43 bytes
+ 686.7  19 | 2020-02-10T02:45:06+0000 [stdout#info] A query: b'vortex.data.microsoft.com'
+ 686.7  19 | 2020-02-10T02:45:06+0000 [DNSDatagramProtocol (UDP)] DNSDatagramProtocol starting on 46814
+ 686.7  19 | 2020-02-10T02:45:06+0000 [DNSDatagramProtocol (UDP)] Starting protocol <twisted.names.dns.DNSDatagramProtocol object at 0x7f4941b2f630>
+ 686.8  19 | 2020-02-10T02:45:06+0000 [-] (UDP Port 46814 Closed)
+ 686.8  19 | 2020-02-10T02:45:06+0000 [-] Stopping protocol <twisted.names.dns.DNSDatagramProtocol object at 0x7f4941b2f630>
+ 691.7 TEL | [71] Running: sudo -n echo -n
+ 691.7 TEL | [71] ran in 0.01 secs.
+ 697.9 TEL | (proxy checking local liveness)
+ 697.9  19 | 2020-02-10T02:45:17+0000 [Poll#info] Checkpoint
+ 721.7 TEL | [72] Running: sudo -n echo -n
+ 721.7 TEL | [72] ran in 0.01 secs.
+ 724.5  41 | c : DNS request from ('172.17.0.2', 37906) to None: 46 bytes
+ 724.5  41 | c : DNS request from ('172.17.0.2', 37906) to None: 46 bytes
+ 724.5  19 | 2020-02-10T02:45:44+0000 [stdout#info] A query: b'dc.services.visualstudio.com'
+ 724.5  41 | c : DNS request from ('172.17.0.2', 59014) to None: 46 bytes
+ 724.5  41 | c : DNS request from ('172.17.0.2', 59014) to None: 46 bytes
+ 724.5  19 | 2020-02-10T02:45:44+0000 [DNSDatagramProtocol (UDP)] DNSDatagramProtocol starting on 23154
+ 724.5  19 | 2020-02-10T02:45:44+0000 [DNSDatagramProtocol (UDP)] Starting protocol <twisted.names.dns.DNSDatagramProtocol object at 0x7f4941b2fac8>
+ 724.5  19 | 2020-02-10T02:45:44+0000 [stdout#info] AAAA query, sending back A instead: b'dc.services.visualstudio.com'
+ 724.5  19 | 2020-02-10T02:45:44+0000 [stdout#info] A query: b'dc.services.visualstudio.com'
+ 724.5  19 | 2020-02-10T02:45:44+0000 [stdout#info] A query: b'dc.services.visualstudio.com'
+ 724.5  19 | 2020-02-10T02:45:44+0000 [stdout#info] AAAA query, sending back A instead: b'dc.services.visualstudio.com'
+ 724.5  19 | 2020-02-10T02:45:44+0000 [stdout#info] A query: b'dc.services.visualstudio.com'
+ 724.6  19 | 2020-02-10T02:45:44+0000 [-] (UDP Port 23154 Closed)
+ 724.6  19 | 2020-02-10T02:45:44+0000 [-] Stopping protocol <twisted.names.dns.DNSDatagramProtocol object at 0x7f4941b2fac8>
+ 727.9 TEL | (proxy checking local liveness)
+ 727.9  19 | 2020-02-10T02:45:47+0000 [Poll#info] Checkpoint
+ 751.8 TEL | [73] Running: sudo -n echo -n
+ 751.8 TEL | [73] ran in 0.01 secs.
+ 757.9 TEL | (proxy checking local liveness)
+ 757.9  19 | 2020-02-10T02:46:17+0000 [Poll#info] Checkpoint
+ 781.8 TEL | [74] Running: sudo -n echo -n
+ 781.8 TEL | [74] ran in 0.01 secs.
+ 787.9 TEL | (proxy checking local liveness)
+ 787.9  19 | 2020-02-10T02:46:47+0000 [Poll#info] Checkpoint
+ 806.7  41 | c : DNS request from ('172.17.0.2', 59412) to None: 43 bytes
+ 806.7  19 | 2020-02-10T02:47:06+0000 [stdout#info] A query: b'vortex.data.microsoft.com'
+ 806.7  19 | 2020-02-10T02:47:06+0000 [DNSDatagramProtocol (UDP)] DNSDatagramProtocol starting on 1619
+ 806.7  19 | 2020-02-10T02:47:06+0000 [DNSDatagramProtocol (UDP)] Starting protocol <twisted.names.dns.DNSDatagramProtocol object at 0x7f4941b3e198>
+ 806.7  19 | 2020-02-10T02:47:06+0000 [-] (UDP Port 1619 Closed)
+ 806.7  19 | 2020-02-10T02:47:06+0000 [-] Stopping protocol <twisted.names.dns.DNSDatagramProtocol object at 0x7f4941b3e198>
+ 811.9 TEL | [75] Running: sudo -n echo -n
+ 811.9 TEL | [75] ran in 0.00 secs.
+ 817.9 TEL | (proxy checking local liveness)
+ 817.9  19 | 2020-02-10T02:47:17+0000 [Poll#info] Checkpoint
+ 841.9 TEL | [76] Running: sudo -n echo -n
+ 841.9 TEL | [76] ran in 0.00 secs.
+ 847.9 TEL | (proxy checking local liveness)
+ 847.9  19 | 2020-02-10T02:47:47+0000 [Poll#info] Checkpoint
+ 872.0 TEL | [77] Running: sudo -n echo -n
+ 872.0 TEL | [77] ran in 0.01 secs.
+ 877.9 TEL | (proxy checking local liveness)
+ 877.9  19 | 2020-02-10T02:48:17+0000 [Poll#info] Checkpoint
+ 902.0 TEL | [78] Running: sudo -n echo -n
+ 902.0 TEL | [78] ran in 0.01 secs.
+ 907.9 TEL | (proxy checking local liveness)
+ 907.9  19 | 2020-02-10T02:48:47+0000 [Poll#info] Checkpoint
+ 926.7  41 | c : DNS request from ('172.17.0.2', 39926) to None: 43 bytes
+ 926.7  19 | 2020-02-10T02:49:06+0000 [stdout#info] A query: b'vortex.data.microsoft.com'
+ 926.7  19 | 2020-02-10T02:49:06+0000 [DNSDatagramProtocol (UDP)] DNSDatagramProtocol starting on 42612
+ 926.7  19 | 2020-02-10T02:49:06+0000 [DNSDatagramProtocol (UDP)] Starting protocol <twisted.names.dns.DNSDatagramProtocol object at 0x7f4941b2f550>
+ 926.8  19 | 2020-02-10T02:49:06+0000 [-] (UDP Port 42612 Closed)
+ 926.8  19 | 2020-02-10T02:49:06+0000 [-] Stopping protocol <twisted.names.dns.DNSDatagramProtocol object at 0x7f4941b2f550>
+ 932.0 TEL | [79] Running: sudo -n echo -n
+ 932.0 TEL | [79] ran in 0.01 secs.
+ 937.9 TEL | (proxy checking local liveness)
+ 937.9  19 | 2020-02-10T02:49:17+0000 [Poll#info] Checkpoint
+ 955.5 >>> | Received signal SIGHUP while in function wait_for_exit
+ 955.5 TEL | EXITING successful session.
+ 955.5 >>> | Exit cleanup in progress
+ 955.5 TEL | (Cleanup) Terminate local process
+ 955.5 TEL | Killing local process...
+ 955.5 TEL | Main process (bash --norc)
+ 955.5 TEL |  exited with code 0.
+ 955.5  41 | >> iptables -t nat -D OUTPUT -j sshuttle-12300
+ 955.5 TEL | (Cleanup) Kill BG process [41] sshuttle
+ 955.5 TEL | (Cleanup) Unmount remote filesystem
+ 955.5 TEL | (Cleanup) Kill BG process [24] SSH port forward (socks and proxy poll)
+ 955.5 TEL | (Cleanup) Kill Web server for proxy poll
+ 955.5 TEL | [24] SSH port forward (socks and proxy poll): exit 0
+ 955.6  41 | >> iptables -t nat -D PREROUTING -j sshuttle-12300
+ 955.6  41 | >> iptables -t nat -F sshuttle-12300
+ 955.6  41 | >> iptables -t nat -X sshuttle-12300
+ 955.6  41 | firewall manager: Error trying to undo /etc/hosts changes.
+ 955.6  41 | firewall manager: ---> Traceback (most recent call last):
+ 955.6  41 | firewall manager: --->   File "/root/.pex/installed_wheels/0d9e68051641ddb11ae2a297ad09cac33277ceac/sshuttle_telepresence-0.78.2.dev45+gd250ccb-py2.py3-none-any.whl/sshuttle/firewall.py", line 274, in main
+ 955.6  41 | firewall manager: --->     restore_etc_hosts(port_v6 or port_v4)
+ 955.6  41 | firewall manager: --->   File "/root/.pex/installed_wheels/0d9e68051641ddb11ae2a297ad09cac33277ceac/sshuttle_telepresence-0.78.2.dev45+gd250ccb-py2.py3-none-any.whl/sshuttle/firewall.py", line 50, in restore_etc_hosts
+ 955.6  41 | firewall manager: --->     rewrite_etc_hosts({}, port)
+ 955.6  41 | firewall manager: --->   File "/root/.pex/installed_wheels/0d9e68051641ddb11ae2a297ad09cac33277ceac/sshuttle_telepresence-0.78.2.dev45+gd250ccb-py2.py3-none-any.whl/sshuttle/firewall.py", line 29, in rewrite_etc_hosts
+ 955.6  41 | firewall manager: --->     os.link(HOSTSFILE, BAKFILE)
+ 955.6  41 | firewall manager: ---> OSError: [Errno 18] Invalid cross-device link: '/etc/hosts' -> '/etc/hosts.sbak'
+ 955.6 TEL | [41] sshuttle: exit -1
+ 956.0 TEL | (Cleanup) Kill BG process [23] SSH port forward (exposed ports)
+ 956.0 TEL | [23] SSH port forward (exposed ports): exit 0
+ 956.0 TEL | (Cleanup) Kill BG process [20] kubectl port-forward
+ 956.0 TEL | [20] kubectl port-forward: exit -15
+ 956.0 TEL | (Cleanup) Kill BG process [19] kubectl logs
+ 956.0 TEL | [19] kubectl logs: exit -15
+ 956.0 TEL | Background process (kubectl logs) exited with return code -15. Command was:
+ 956.0 TEL |   kubectl --context docker-desktop --namespace default logs -f userblazor-9d820bb9bb6e445e94b31e4d4491eac9-5c9b9bb79c-zkvzk --container userblazor --tail=10
+ 956.0 TEL | (Cleanup) Re-scale original deployment
+ 956.0 TEL | 
+ 956.0 TEL | Recent output was:
+ 956.0 TEL |   2020-02-10T02:47:17+0000 [Poll#info] Checkpoint
+ 956.0 TEL |   2020-02-10T02:47:47+0000 [Poll#info] Checkpoint
+ 956.0 TEL |   2020-02-10T02:48:17+0000 [Poll#info] Checkpoint
+ 956.0 TEL |   2020-02-10T02:48:47+0000 [Poll#info] Checkpoint
+ 956.0 TEL |   2020-02-10T02:49:06+0000 [stdout#info] A query: b'vortex.data.microsoft.com'
+ 956.0 TEL |   2020-02-10T02:49:06+0000 [DNSDatagramProtocol (UDP)] DNSDatagramProtocol starting on 42612
+ 956.0 TEL |   2020-02-10T02:49:06+0000 [DNSDatagramProtocol (UDP)] Starting protocol <twisted.names.dns.DNSDatagramProtocol object at 0x7f4941b2f550>
+ 956.0 TEL |   2020-02-10T02:49:06+0000 [-] (UDP Port 42612 Closed)
+ 956.0 TEL |   2020-02-10T02:49:06+0000 [-] Stopping protocol <twisted.names.dns.DNSDatagramProtocol object at 0x7f4941b2f550>
+ 956.0 TEL |   2020-02-10T02:49:17+0000 [Poll#info] Checkpoint
+ 956.0 TEL | [80] Running: kubectl --context docker-desktop --namespace default scale deployment userblazor --replicas=1
+ 956.3  80 | deployment.extensions/userblazor scaled
+ 956.3 TEL | [80] ran in 0.30 secs.
+ 956.3 TEL | (Cleanup) Delete new deployment
+ 956.3 >>> | Swapping Deployment userblazor back to its original state
+ 956.3 TEL | (Cleanup) Delete new deployment failed:
+ 956.3 TEL | (Cleanup)   [Errno 5] Input/output error
+ 956.3 TEL | (Cleanup) Kill sudo privileges holder
+ 956.3 TEL | (Cleanup) Stop time tracking
+ 956.3 TEL | END SPAN main.py:40(main)  956.3s
+ 956.3 TEL | SPAN SUMMARY:
+ 956.3 TEL |  956.3s main.py:40(main)
+ 956.3 TEL |    0.5s   startup.py:83(set_kube_command)
+ 956.3 TEL |    0.0s     1 kubectl config current-context
+ 956.3 TEL |    0.1s     2 kubectl --context docker-desktop version --short
+ 956.3 TEL |    0.0s     3 kubectl --context docker-desktop config view -o json
+ 956.3 TEL |    0.3s     4 kubectl --context docker-desktop get ns default
+ 956.3 TEL |    0.1s     5 kubectl --context docker-desktop api-versions
+ 956.3 TEL |    0.0s   6 ssh -V
+ 956.3 TEL |    0.0s   7 sudo -n echo -n
+ 956.3 TEL |    0.0s   8 sudo iptables --list
+ 956.3 TEL |    0.1s   9 kubectl --context docker-desktop --namespace default get pods telepresence-con
+ 956.3 TEL |    0.4s   deployment.py:193(supplant_deployment)
+ 956.3 TEL |    0.1s     remote.py:75(get_deployment_json)
+ 956.3 TEL |    0.1s       10 kubectl --context docker-desktop --namespace default get deployment -o json u
+ 956.3 TEL |    0.1s     11 kubectl --context docker-desktop --namespace default delete deployment userbl
+ 956.3 TEL |    0.1s     12 kubectl --context docker-desktop --namespace default apply -f -
+ 956.3 TEL |    0.1s     13 kubectl --context docker-desktop --namespace default scale deployment userbla
+ 956.3 TEL |    0.9s   remote.py:142(get_remote_info)
+ 956.3 TEL |    0.1s     remote.py:75(get_deployment_json)
+ 956.3 TEL |    0.1s       14 kubectl --context docker-desktop --namespace default get deployment -o json -
+ 956.3 TEL |    0.1s     15 kubectl --context docker-desktop --namespace default get pod -o json --select
+ 956.3 TEL |    0.7s     remote.py:104(wait_for_pod)
+ 956.3 TEL |    0.1s       16 kubectl --context docker-desktop --namespace default get pod userblazor-9d820
+ 956.3 TEL |    0.1s       17 kubectl --context docker-desktop --namespace default get pod userblazor-9d820
+ 956.3 TEL |    0.1s       18 kubectl --context docker-desktop --namespace default get pod userblazor-9d820
+ 956.3 TEL |    0.4s   connect.py:37(connect)
+ 956.3 TEL |    0.0s     21 ssh -F /dev/null -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -q
+ 956.3 TEL |    0.1s     22 ssh -F /dev/null -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -q
+ 956.3 TEL |    0.2s   remote_env.py:29(get_remote_env)
+ 956.3 TEL |    0.2s     25 kubectl --context docker-desktop --namespace default exec userblazor-9d820bb9
+ 956.3 TEL |    0.0s   mount.py:30(mount_remote_volumes)
+ 956.3 TEL |    0.0s     26 sshfs -p 38469 -F /dev/null -oStrictHostKeyChecking=no -oUserKnownHostsFile=/
+ 956.3 TEL |    2.5s   vpn.py:271(connect_sshuttle)
+ 956.3 TEL |    1.0s     vpn.py:77(get_proxy_cidrs)
+ 956.3 TEL |    0.1s       27 kubectl --context docker-desktop --namespace default get nodes -o json
+ 956.3 TEL |    0.1s       28 kubectl --context docker-desktop --namespace default get pods -o json
+ 956.3 TEL |    0.1s       29 kubectl --context docker-desktop --namespace default get services -o json
+ 956.3 TEL |    0.1s       30 kubectl --context docker-desktop --namespace default create service clusterip
+ 956.3 TEL |    0.1s       31 kubectl --context docker-desktop --namespace default create service clusterip
+ 956.3 TEL |    0.1s       32 kubectl --context docker-desktop --namespace default create service clusterip
+ 956.3 TEL |    0.1s       33 kubectl --context docker-desktop --namespace default create service clusterip
+ 956.3 TEL |    0.1s       34 kubectl --context docker-desktop --namespace default create service clusterip
+ 956.3 TEL |    0.1s       35 kubectl --context docker-desktop --namespace default get services -o json
+ 956.3 TEL |    0.1s       36 kubectl --context docker-desktop --namespace default delete service teleprese
+ 956.3 TEL |    0.1s       37 kubectl --context docker-desktop --namespace default delete service teleprese
+ 956.3 TEL |    0.1s       38 kubectl --context docker-desktop --namespace default delete service teleprese
+ 956.3 TEL |    0.1s       39 kubectl --context docker-desktop --namespace default delete service teleprese
+ 956.3 TEL |    0.1s       40 kubectl --context docker-desktop --namespace default delete service teleprese
+ 956.3 TEL |    1.5s     vpn.py:294(connect_sshuttle,sshuttle-wait)
+ 956.3 TEL |    1.0s       42 python3 -c 'import socket; socket.gethostbyname("hellotelepresence-0")'
+ 956.3 TEL |    0.0s       43 python3 -c 'import socket; socket.gethostbyname("hellotelepresence-0.a.sanity
+ 956.3 TEL |    0.0s       44 python3 -c 'import socket; socket.gethostbyname("hellotelepresence-1")'
+ 956.3 TEL |    0.0s       45 python3 -c 'import socket; socket.gethostbyname("hellotelepresence-1.a.sanity
+ 956.3 TEL |    0.0s       46 python3 -c 'import socket; socket.gethostbyname("hellotelepresence-2")'
+ 956.3 TEL |    0.0s       47 python3 -c 'import socket; socket.gethostbyname("hellotelepresence-2.a.sanity
+ 956.3 TEL |    0.0s       48 python3 -c 'import socket; socket.gethostbyname("hellotelepresence-3")'
+ 956.3 TEL |    ???   runner.py:725(wait_for_exit)
+ 956.3 TEL |    0.0s     49 sudo -n echo -n
+ 956.3 TEL |    0.0s     50 sudo -n echo -n
+ 956.3 TEL |    0.0s     51 sudo -n echo -n
+ 956.3 TEL |    0.0s     52 sudo -n echo -n
+ 956.3 TEL |    0.0s     53 sudo -n echo -n
+ 956.3 TEL |    0.0s     54 sudo -n echo -n
+ 956.3 TEL |    0.0s     55 sudo -n echo -n
+ 956.3 TEL |    0.0s     56 sudo -n echo -n
+ 956.3 TEL |    0.0s     57 sudo -n echo -n
+ 956.3 TEL |    0.0s     58 sudo -n echo -n
+ 956.3 TEL |    0.0s     59 sudo -n echo -n
+ 956.3 TEL |    0.0s     60 sudo -n echo -n
+ 956.3 TEL |    0.0s     61 sudo -n echo -n
+ 956.3 TEL |    0.0s     62 sudo -n echo -n
+ 956.3 TEL |    0.0s     63 sudo -n echo -n
+ 956.3 TEL |    0.0s     64 sudo -n echo -n
+ 956.3 TEL |    0.0s     65 sudo -n echo -n
+ 956.3 TEL |    0.0s     66 sudo -n echo -n
+ 956.3 TEL |    0.0s     67 sudo -n echo -n
+ 956.3 TEL |    0.0s     68 sudo -n echo -n
+ 956.3 TEL |    0.0s     69 sudo -n echo -n
+ 956.3 TEL |    0.0s     70 sudo -n echo -n
+ 956.3 TEL |    0.0s     71 sudo -n echo -n
+ 956.3 TEL |    0.0s     72 sudo -n echo -n
+ 956.3 TEL |    0.0s     73 sudo -n echo -n
+ 956.3 TEL |    0.0s     74 sudo -n echo -n
+ 956.3 TEL |    0.0s     75 sudo -n echo -n
+ 956.3 TEL |    0.0s     76 sudo -n echo -n
+ 956.3 TEL |    0.0s     77 sudo -n echo -n
+ 956.3 TEL |    0.0s     78 sudo -n echo -n
+ 956.3 TEL |    0.0s     79 sudo -n echo -n
+ 956.3 TEL |    0.3s     80 kubectl --context docker-desktop --namespace default scale deployment userbla
+ 956.3 TEL | (Cleanup) Remove temporary directory
+ 956.3 TEL | (Cleanup) Save caches
+ 957.1 TEL | (sudo privileges holder thread exiting)

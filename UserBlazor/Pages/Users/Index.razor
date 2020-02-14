@@ -1,0 +1,60 @@
+﻿@page "/users"
+
+@using UserBlazor.Data
+@inject UserWebServices UserServices
+
+<h3>Users</h3>
+
+<div>
+    <a class="btn btn-success" href="users/add">New User</a>
+</div>
+
+@if (gUsers == null)
+{
+    <p><em>Loading...</em></p>
+}
+else if (gUsers.Length == 0)
+{
+    <text>There are not records in the database.</text>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>User ID</th>
+                <th>User Name</th>
+                <th>User Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var vUser in gUsers)
+            {
+                <tr>
+                    <td>
+                        <a class="btn btn-success" href="users/edit/@vUser.UserId">Edit</a>
+                        <button class="btn btn-danger" @onclick="@(() => DeleteUser(vUser.UserId))">Delete</button>
+                    </td>
+                    <td>@vUser.UserId</td>
+                    <td>@vUser.UserName</td>
+                    <td>@vUser.UserEmail</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private UserWeb[] gUsers;
+
+    protected override async Task OnInitializedAsync()
+    {
+        gUsers = await UserServices.GetUsersAsync();
+    }
+
+    async Task DeleteUser(int pUserId)
+    {
+        await UserServices.Delete(pUserId);
+        gUsers = await UserServices.GetUsersAsync();
+    }
+}
