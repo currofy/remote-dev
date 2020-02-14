@@ -1,4 +1,4 @@
-![remote-dev](img/undraw_shared_workspace_hwky.png =423x100)
+![remote-dev](img/undraw_shared_workspace_hwky.png)
 
 [![Gitter](https://badges.gitter.im/currofy/community.svg)](https://gitter.im/currofy/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
@@ -73,6 +73,8 @@ To use your own images or Docker config files you'll need to create, at the appl
 To star, open the directory where the `Dockerfile´ lives and once opened it, select the option
 **Remote-Containers: Add Development Container Configuration Files...** (press F1 to see command options)
 
-## Contributing guidelines
+[See also](https://github.com/Microsoft/vscode-docs/blob/master/docs/remote/containers.md)
 
-## Code of conduct and license
+## Want to Contribute?
+
+## Credits & Sponsors
