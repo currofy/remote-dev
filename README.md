@@ -1,6 +1,6 @@
 ![remote-dev](img/undraw_shared_workspace_hwky.png)
 
-[![Gitter](https://badges.gitter.im/currofy/community.svg)](https://gitter.im/currofy/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+[![Gitter](https://badges.gitter.im/currofy/community.svg)](https://gitter.im/currofy/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge) [![Join the chat at https://gitter.im/currofy/remote-dev](https://badges.gitter.im/currofy/remote-dev.svg)](https://gitter.im/currofy/remote-dev?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 # Remote Dev
 
