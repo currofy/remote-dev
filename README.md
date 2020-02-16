@@ -1,76 +1,74 @@
 ![remote-dev](img/undraw_shared_workspace_hwky.png)
 
-![Gitter](https://img.shields.io/gitter/room/currofy/remote-dev?label=hablamos&logo=gitter)
-
-![/README-EN.md](https://img.shields.io/badge/Read-on%20English-darkblue)
+[![Gitter](https://img.shields.io/gitter/room/currofy/remote-dev?label=hablamos&logo=gitter)](https://gitter.im/currofy/remote-dev) [![English](https://img.shields.io/badge/Read-in%20English-darkblue)](/README-EN.md)
 
 # Remote Containers con VSCode.
 
-Esta herramienta nos permite compartir distintos entornos de aplicaciones o SO sin la necesidad de instalar todos los componentes necesarios en las m�quinas "cliente". El sistema funciona a trav�s de la configuraci�n de Contenedores de Docker que, una vez lanzados, nos "virtualizan" el entorno sobre el propio Docker, incluyendo aplicaciones, extensiones, configuraciones y c�digo fuente.
+Esta herramienta nos permite compartir distintos entornos de aplicaciones o SO sin la necesidad de instalar todos los componentes necesarios en las máquinas "cliente". El sistema funciona a través de la configuración de Contenedores de Docker que, una vez lanzados, nos "virtualizan" el entorno sobre el propio Docker, incluyendo aplicaciones, extensiones, configuraciones y código fuente.
 
 Existen varias formas de configurar un entorno para que funcione completamente en un entorno de contenedores con VS Code. En general, existen dos escenarios principales para este tipo de desarrollo:
 
-- **Entornos de Deasrrollo Aislados (Stand-Alone Dev Sandboxes)**. Incluso cuando no estamos desarrollando una aplicaci�n para entornos de contenedores, podemos tener la necesidad de aislar el entorno de compilaci�n y tiempo de ejecuci�n de nuestro entorno local, ya sea por incompatibilidad de plataformas, por desarrollar y probar sobre un entorno similar al productivo, para evitar la necesidad de tener mutitud de "frameworks" de desarrollo en local, etc. Un caso t�pico podr�a ser tener una maquina de desarrollo Windows o Mac y estar desarrollando una apliaci�n cuyo entorno final de ejecuci�n se Linux. Otro caso t�pico podr�a ser un equipo que participa en multitud de entornos distintos de desarrollo que pueden exigir distantas versiones de aplicaciones o complementos de desarrollo lo que obiliga a estar constantemente modificando la m�quina de deasrrollo.
-- **Aplicaciones de Implementacion en Contenedores**. Si la aplicaci�n que estamos desarrollando est� pensada para ejecutarse en contenedores, lo m�s recomendable es trabajar directamente sobre contenedores con el fin de poder ver las implicaciones que pueda tener al implementarla en producci�n.
+- **Entornos de Deasrrollo Aislados (Stand-Alone Dev Sandboxes)**. Incluso cuando no estamos desarrollando una aplicación para entornos de contenedores, podemos tener la necesidad de aislar el entorno de compilación y tiempo de ejecución de nuestro entorno local, ya sea por incompatibilidad de plataformas, por desarrollar y probar sobre un entorno similar al productivo, para evitar la necesidad de tener mutitud de "frameworks" de desarrollo en local, etc. Un caso tópico podría ser tener una maquina de desarrollo Windows o Mac y estar desarrollando una apliación cuyo entorno final de ejecución se Linux. Otro caso tópico podría ser un equipo que participa en multitud de entornos distintos de desarrollo que pueden exigir distantas versiones de aplicaciones o complementos de desarrollo lo que obiliga a estar constantemente modificando la máquina de deasrrollo.
+- **Aplicaciones de Implementacion en Contenedores**. Si la aplicación que estamos desarrollando está pensada para ejecutarse en contenedores, lo más recomendable es trabajar directamente sobre contenedores con el fin de poder ver las implicaciones que pueda tener al implementarla en producción.
 
 ## Requerimientos del Sistema.
 
 **Local**
 
-- **Windows**. Docker Desktop 2.0 o superior en Windows 10 Pro/Ent. Docker Toolbox no est� soportado.
+- **Windows**. Docker Desktop 2.0 o superior en Windows 10 Pro/Ent. Docker Toolbox no está soportado.
 - **macOS**. Docker Desktop 2.0 o superior.
 - **Linux**. Docker CE/EE 18.06 o superior y Docker Compose 1.21 o superior.
 
 **Containers**. x86_64 Debian 8 o superior, Ubuntu 16.04 o superior, CentOS / RHEL 7 o superior, Contenedores basados en Linux Alpine.
 
-## Instalaci�n del entorno.
+## Instalación del entorno.
 
-1. Instalaci�n de Cliente Docker.
+1. Instalación de Cliente Docker.
    En base al sistema operativo tendremos que realizar los siguientes pasos:
 
    **Windows / macOS**.
 
    1. Instalar [Docker Desktop For Windows/Mac](https://www.docker.com/products/docker-desktop).
-   2. Una vez instalado, pulsamos bot�n derecho sobre su icono de la barra de tareas y seleccionamos "Settings / Preferences / Shared Drives / File Sharing". En la pantalla de configuraci�n seleccionamos la unidad o unidades que vamos a utilizar con Docker.
+   2. Una vez instalado, pulsamos botón derecho sobre su icono de la barra de tareas y seleccionamos "Settings / Preferences / Shared Drives / File Sharing". En la pantalla de configuración seleccionamos la unidad o unidades que vamos a utilizar con Docker.
 
    **Linux**.
 
-   1. Dependiendo de la distribuci�n seleccionada debemos seguir las [instrucciones de instalacion del sitio de Docker](https://docs.docker.com/install/#supported-platforms). En caso de utilizar Docker Compose debemos seguir las instrucciones espec�ficas para [Compose](https://docs.docker.com/compose/install/)
+   1. Dependiendo de la distribución seleccionada debemos seguir las [instrucciones de instalacion del sitio de Docker](https://docs.docker.com/install/#supported-platforms). En caso de utilizar Docker Compose debemos seguir las instrucciones específicas para [Compose](https://docs.docker.com/compose/install/)
    2. Una vez instalado debemos agregar nuestro usuario al grupo _docker_ utilizando la siguiente linea de comandos: _sudo usermod -aG docker \$USER_
-   3. Cerrar sesi�n y volver a logearse para que se apliquen los cambios.
+   3. Cerrar sesión y volver a logearse para que se apliquen los cambios.
 
 2. Instalar [Visual Studio Code](https://code.visualstudio.com/) o [Visual Studio Code Insiders](https://code.visualstudio.com/insiders/)
 3. Instalar pack de [Remote Development Extension](https://aka.ms/vscode-remote/download/extension)
 
-El modo de funcionamiento que se va a exponer ser�a el modo "full-time development environment", donde utilizamos el contenedor y su contenido como entorno de desarrollo completo.
+El modo de funcionamiento que se va a exponer sería el modo "full-time development environment", donde utilizamos el contenedor y su contenido como entorno de desarrollo completo.
 
 ## Configuracion de Docker Remote en VSCode.
 
-Para la puesta en marcha de un nuevo contenedor remoto tenemos distintas opciones que vamos a ver a continuaci�n y que dependen del "punto de partida" de nuestro desarrollo.
+Para la puesta en marcha de un nuevo contenedor remoto tenemos distintas opciones que vamos a ver a continuación y que dependen del "punto de partida" de nuestro desarrollo.
 
 #### Utilizar un fichero Dockerfile.
 
-Se configura VSCode para utilizar una imagen existente con origen DockerHub, Azure Container Registry, o de nuestra creaci�n. Para poder utilizar nuestras imagenes o ficheros de configuraci�n de Docker debemos crear, en el mismo directorio de nuestra aplicaci�n, un directorio ".devcontainer" y, dentro de �ste, un fichero "devcontainer.json".
+Se configura VSCode para utilizar una imagen existente con origen DockerHub, Azure Container Registry, o de nuestra creación. Para poder utilizar nuestras imagenes o ficheros de configuración de Docker debemos crear, en el mismo directorio de nuestra aplicación, un directorio ".devcontainer" y, dentro de éste, un fichero "devcontainer.json".
 
-Empezamos por abrir el directorio donde tenemos el proyectos o el fichero "Dockerfile" y, una vez abierto, seleccionamos la opci�n **Remote-Containers: Add Development Container Configuration Files...** (la paleta de comandos la podemos mostrar pulsando F1).
+Empezamos por abrir el directorio donde tenemos el proyectos o el fichero "Dockerfile" y, una vez abierto, seleccionamos la opción **Remote-Containers: Add Development Container Configuration Files...** (la paleta de comandos la podemos mostrar pulsando F1).
 
 | ![Add Remote Container.](./img/DockerR01.jpg) |
 | :-------------------------------------------: |
 
 
-| _Creaci�n de ficheros de configuraci�n de Docker Remote (*F1*)_
+| _creación de ficheros de configuración de Docker Remote (*F1*)_
 
-Seleccionamos la opci�n **From 'Dockerfile"** para poder indicarle, a posteriori, el fichero Dockerfile de nuestro proyecto.
+Seleccionamos la opción **From 'Dockerfile"** para poder indicarle, a posteriori, el fichero Dockerfile de nuestro proyecto.
 
 | ![Add Remote Container from Dockerfile.](./img/DockerR02.jpg) |
 | :-----------------------------------------------------------: |
 
 
-| _Creaci�n de ficheros de configuraci�n de Docker Remote (*F1*) desde Dockerfile_
+| _creación de ficheros de configuración de Docker Remote (*F1*) desde Dockerfile_
 
 La herramienta de VSCode nos crea un nuevo directorio en nuestro proyecto con el nombre **.devcontainer** y un nuevo fichero con nombre **devcontainer.json**.
 
-En el nuevo archivo creado (**devcontainer.json**) tenemos una propiedad que, por defecto, VSCode ya nos habr� inicializado con el nombre y ruta de nuestro fichero Dockerfile. Si el nombre o la ruta fueran incorrectos tendremos que modificarlo manualmente para que coincida con nuestra configuracion.
+En el nuevo archivo creado (**devcontainer.json**) tenemos una propiedad que, por defecto, VSCode ya nos habrá inicializado con el nombre y ruta de nuestro fichero Dockerfile. Si el nombre o la ruta fueran incorrectos tendremos que modificarlo manualmente para que coincida con nuestra configuracion.
 
 | ![Propiedad de Fichero Dockerfile.](./img/DockerR03.jpg) |
 | :------------------------------------------------------: |
@@ -78,15 +76,15 @@ En el nuevo archivo creado (**devcontainer.json**) tenemos una propiedad que, po
 
 | _Propiedad para al configuracion de ruta y nombre de fichero Dockerfile._
 
-Otra de las opciones que podemos configurar, dependiendo del SO base de la imagen Docker, es el "shell" que queremos utilizar cuando lancemos la venta "terminal" (como veremos m�s adelante). Esto nos va ha permitir interactuar con el SO del contenedor a trav�s de la consola.
+Otra de las opciones que podemos configurar, dependiendo del SO base de la imagen Docker, es el "shell" que queremos utilizar cuando lancemos la venta "terminal" (como veremos más adelante). Esto nos va ha permitir interactuar con el SO del contenedor a través de la consola.
 
 | ![Propiedad Configuracion de Shell.](./img/DockerR04.jpg) |
 | :-------------------------------------------------------: |
 
 
-| _Propiedad para la configuraci�n del Shell de Linux en SO de contenedor._
+| _Propiedad para la configuración del Shell de Linux en SO de contenedor._
 
-Por �ltimo, y para el ejemplo que estamos viendo, donde queremos utilizar un contenedor que nos permita desarrollar sobre la �ltima versi�n de .Net Core, vamos a indicarle a Docker Remote que, una vez que est� levantado el contenedor, nos instale la extensi�n relativa al SDK de desarrollo de .NET Core. Podemos indicarle varias extensiones separandolas por una coma e indicando, como nombre de la extensi�n, la propiedad **unique.identifier** que encontramos en todas las extensiones de VSCode.
+Por último, y para el ejemplo que estamos viendo, donde queremos utilizar un contenedor que nos permita desarrollar sobre la última versión de .Net Core, vamos a indicarle a Docker Remote que, una vez que está levantado el contenedor, nos instale la extensión relativa al SDK de desarrollo de .NET Core. Podemos indicarle varias extensiones separandolas por una coma e indicando, como nombre de la extensión, la propiedad **unique.identifier** que encontramos en todas las extensiones de VSCode.
 
 | ![Propiedad Extensiones de VSCode.](./img/DockerR05.jpg) |
 | :------------------------------------------------------: |
@@ -94,7 +92,7 @@ Por �ltimo, y para el ejemplo que estamos viendo, donde queremos utilizar un c
 
 | _Propiedad para la configuracion de las extensiones a agregar en el contenedor._
 
-Adem�s de las propiedades b�sicas comentadas, el fichero **devcontainer.json** puede tener otras muchas para distintos cometidos, como por ejemplo, definir la publicaci�n de puertos del contenedor, par�metros de inicializaci�n del cliente Docker al lanzar el contenedor, etc. Se puede encontrar una lista de opciones en la su [referencia](https://code.visualstudio.com/docs/remote/containers?WT.mc_id=-blog-scottha#_devcontainerjson-reference).
+Además de las propiedades básicas comentadas, el fichero **devcontainer.json** puede tener otras muchas para distintos cometidos, como por ejemplo, definir la publicación de puertos del contenedor, parámetros de inicialización del cliente Docker al lanzar el contenedor, etc. Se puede encontrar una lista de opciones en la su [referencia](https://code.visualstudio.com/docs/remote/containers?WT.mc_id=-blog-scottha#_devcontainerjson-reference).
 
 | ![Apertura de proyecto en Contenedor.](./img/DockerR06.jpg) |
 | :---------------------------------------------------------: |
@@ -102,9 +100,9 @@ Adem�s de las propiedades b�sicas comentadas, el fichero **devcontainer.json
 
 | _Reapertura de directorio de proyecto sobre Contenedor Docker._
 
-Una vez que hemos terminado de configurar el archivo para Docker Remote, reabrimos el directorio en el contenedor, para ello, seleccionamos **Remote-Containers: Reopen Folder in Container** en la consola de comandos (_F1_) (tambi�n podemos utilizar **Remote-Containers: Open folder in Container...**).
+Una vez que hemos terminado de configurar el archivo para Docker Remote, reabrimos el directorio en el contenedor, para ello, seleccionamos **Remote-Containers: Reopen Folder in Container** en la consola de comandos (_F1_) (también podemos utilizar **Remote-Containers: Open folder in Container...**).
 
-Cuando finaliza la carga del contenedor, ya podemos comenzar a utilizar nuestro desarrollo sobre Docker Remote. En este caso, por tratarse de una web asp de .Net Core, necesitamos indicarle un puerto local para asociarlo al puerto de entrada del contenedor. Para ello seleccionamos **Remote-Containers: Forward Port from Container** y le indicamos, en este caso, 8090. Ahora ya podr�amos acceder a la aplicaci�n alojada en el contenedor desde nuestro navegador local (http://localhost:8090).
+Cuando finaliza la carga del contenedor, ya podemos comenzar a utilizar nuestro desarrollo sobre Docker Remote. En este caso, por tratarse de una web asp de .Net Core, necesitamos indicarle un puerto local para asociarlo al puerto de entrada del contenedor. Para ello seleccionamos **Remote-Containers: Forward Port from Container** y le indicamos, en este caso, 8090. Ahora ya podríamos acceder a la aplicación alojada en el contenedor desde nuestro navegador local (http://localhost:8090).
 
 | ![Configuracion Puerto local.](./img/DockerR08.jpg) |
 | :-------------------------------------------------: |
@@ -114,13 +112,13 @@ Cuando finaliza la carga del contenedor, ya podemos comenzar a utilizar nuestro 
 
 #### Utilizar un proyecto configurado para Docker Remote con VSCode.
 
-Otra opci�n que tenemos a la hora de utilizar Docker Remote desde VSCode ser�a utilizando una configuraci�n existente, con su correspondiente fichero **Dockerfile** y el fichero de configuracion de Docker Remote \*\*\*\*
+Otra opción que tenemos a la hora de utilizar Docker Remote desde VSCode sería utilizando una configuración existente, con su correspondiente fichero **Dockerfile** y el fichero de configuracion de Docker Remote \*\*\*\*
 
-Un ejemplo ser�a un repositorio (GitHub, GitLab, etc....) donde, adem�s del proyecto de c�digo, disponemos de la confirguraci�n de Docker Remote. Lo �nico que tendr�amos que hacer es clonar el repositorio a un directorio local y, de la misma forma que reabriamos la carpeta de proyecto en el caso anterior, ejecutariamos el mismo procedimiento con el proyecto descaargado, asegurandonos de tener disponible el correspondiente directorio de Docker Remote y su archivo de configuraci�n.
+Un ejemplo sería un repositorio (GitHub, GitLab, etc....) donde, además del proyecto de código, disponemos de la confirguración de Docker Remote. Lo único que tendríamos que hacer es clonar el repositorio a un directorio local y, de la misma forma que reabriamos la carpeta de proyecto en el caso anterior, ejecutariamos el mismo procedimiento con el proyecto descaargado, asegurandonos de tener disponible el correspondiente directorio de Docker Remote y su archivo de configuración.
 
-#### Agregra Docker Remote a proyecto sin configuraci�n de contenedor.
+#### Agregra Docker Remote a proyecto sin configuración de contenedor.
 
-La �ltima opci�n que vamos a ver ser�a aquella donde tenemos un poryecto en el cual no tenemos ni la configuraci�n de Docker Remote ni la de Docker (Dockerfile). Con esta opci�n lo que hacemos es convertir un proyecto o directorio para que su ejecuci�n se realize desde un contenedor. En este caso no disponemos de una configuraci�n de contenedor destino por lo que tendremos que establecerla al configurar Docker Remote.
+La última opción que vamos a ver sería aquella donde tenemos un poryecto en el cual no tenemos ni la configuración de Docker Remote ni la de Docker (Dockerfile). Con esta opción lo que hacemos es convertir un proyecto o directorio para que su ejecución se realize desde un contenedor. En este caso no disponemos de una configuración de contenedor destino por lo que tendremos que establecerla al configurar Docker Remote.
 
 Supongamos que nos hemos levantado con el pie izquierdo, tenemos un dia de kk y decidimos comenzar un proyecto con python. Abrimos la carpeta que lo contine en VSCode y seleccionamos **Remote-Containers: Open folder in Container...** en la consolo de comandos (_F1_).
 
@@ -130,19 +128,19 @@ Supongamos que nos hemos levantado con el pie izquierdo, tenemos un dia de kk y 
 
 | _Abrir directorio local en Contenedor._
 
-Como en este caso no tenemos ninguna configuraci�n previa de Docker Remote, VSCode nos ofrece distintas configuraciones preestablecidas para que seleccionemos la m�s adecuada a nuestras necesidades. En caso que ninguna se ajuste a nuestro proyecto o queramos crear una personaliza, simplementes pulsamos enter sin seleccionar ningua de las propuestas. VSCode nos crear� el fichero de configuracion de Docker Remote y nos dejar� a nosotros la tarea de crear el fichero **Dockerfile** necesario para la ejecuci�n del contenedor. Nosotros, en este caso, seleccionamos **Python 3**.
+Como en este caso no tenemos ninguna configuración previa de Docker Remote, VSCode nos ofrece distintas configuraciones preestablecidas para que seleccionemos la más adecuada a nuestras necesidades. En caso que ninguna se ajuste a nuestro proyecto o queramos crear una personaliza, simplementes pulsamos enter sin seleccionar ningua de las propuestas. VSCode nos creará el fichero de configuracion de Docker Remote y nos dejará a nosotros la tarea de crear el fichero **Dockerfile** necesario para la ejecución del contenedor. Nosotros, en este caso, seleccionamos **Python 3**.
 
-| ![Selecci�n de plantilla de contenedor.](./img/DockerR10.jpg) |
+| ![Selección de plantilla de contenedor.](./img/DockerR10.jpg) |
 | :-----------------------------------------------------------: |
 
 
-| _Selecci�n de plantilla para la creaci�n de contenedor._
+| _Selección de plantilla para la creación de contenedor._
 
-Una vez seleccionado, VSCode se encarga de crear los archivos de configuraci�n, descargar las imagenes Docker necesarias, crear el contenedor y lanzar nuestro proyecto sobre �l.
+Una vez seleccionado, VSCode se encarga de crear los archivos de configuración, descargar las imagenes Docker necesarias, crear el contenedor y lanzar nuestro proyecto sobre él.
 
 #### Agregar extensiones a nuestro contenedores.
 
-Como hemos visto, VSCode agrega la configuraci�n necesaria al contenedor y al fichero de Docker Remote para la ejecuci�n de nuestro proyecto en base a la plantilla que seleccionemos. Si queremos agregar nuevas extensiones al proyecto, no es necesario creaarlas en nuestro entorno sino que podemos indicarle a VSCode que solo las agrege a nuestro contenedor remoto. Para hacer esto, editamos el fichero **devcontainer.json** y nos posicionamos en la propiedad **extensions**. Para ver su funcionamiento vamos a agregar una extensi�n que nos muestre el cosnumo de recursos de del contenedor en tiempo real. Para esto, accedemos a la p�gina de la extensi�n [Resource Monitor](https://marketplace.visualstudio.com/items?itemName=mutantdino.resourcemonitor) y buscamos su propiead **Unique Identifier**, copiamos su valor (mutantdino.resourcemonitor) lo agregamos a la propiedad **extensions**
+Como hemos visto, VSCode agrega la configuración necesaria al contenedor y al fichero de Docker Remote para la ejecución de nuestro proyecto en base a la plantilla que seleccionemos. Si queremos agregar nuevas extensiones al proyecto, no es necesario creaarlas en nuestro entorno sino que podemos indicarle a VSCode que solo las agrege a nuestro contenedor remoto. Para hacer esto, editamos el fichero **devcontainer.json** y nos posicionamos en la propiedad **extensions**. Para ver su funcionamiento vamos a agregar una extensión que nos muestre el cosnumo de recursos de del contenedor en tiempo real. Para esto, accedemos a la página de la extensión [Resource Monitor](https://marketplace.visualstudio.com/items?itemName=mutantdino.resourcemonitor) y buscamos su propiead **Unique Identifier**, copiamos su valor (mutantdino.resourcemonitor) lo agregamos a la propiedad **extensions**
 
 | ![Agregar extension a Contenedor.](./img/DockerR11.jpg) |
 | :-----------------------------------------------------: |
@@ -150,7 +148,7 @@ Como hemos visto, VSCode agrega la configuraci�n necesaria al contenedor y al 
 
 | _Agregando extension "Resource Monitor" a contenedor de Python3._
 
-Como esta propiedad no estaba cuando se creo el contenedor, necesitamos que VSCode reconstruya el contenedor. Para esto, seleccionamos la opci�n **Remote-Containers: Rebuild Containers** en la consola de comandos (_F1_).
+Como esta propiedad no estaba cuando se creo el contenedor, necesitamos que VSCode reconstruya el contenedor. Para esto, seleccionamos la opción **Remote-Containers: Rebuild Containers** en la consola de comandos (_F1_).
 
 | ![Reconstruir contenedor.](./img/DockerR12.jpg) |
 | :---------------------------------------------: |
