@@ -2,8 +2,6 @@
 
 [![Chat on Gitter][gitter-img]][gitter]
 
-[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/RocketChat/Rocket.Chat/raw/master/LICENSE)
-
 # Remote Dev
 
 Virtual Dev Environments over Visual Code for your remote teams
@@ -80,8 +78,3 @@ To star, open the directory where the `Dockerfile´ lives and once opened it, se
 ## Want to Contribute?
 
 ## Credits & Sponsors
-
-[![Graphics by](https://undraw.co)]
-
-[gitter]: https://gitter.im/currofy/remote-dev
-[gitter-img]: https://badges.gitter.im/currofy/community.svg
