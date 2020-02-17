@@ -1,6 +1,6 @@
 ![remote-dev](img/undraw_shared_workspace_hwky.png)
 
-[![Gitter](https://img.shields.io/gitter/room/currofy/remote-dev?label=hablamos&logo=gitter)](https://gitter.im/currofy/remote-dev) [![English](https://img.shields.io/badge/Read-in%20English-darkblue)](/README-EN.md)
+[![Gitter][gitter-img]][gitter] [![English][readme-en]](/README-EN.md)
 
 # Remote Containers con VSCode.
 
@@ -310,3 +310,11 @@ Una vez modificada la página y guardada, reiniciamos el servicio desde la venta
 
 
 | _Vista de la página principal del servicio UserBlazor local redireccionada desde Kubernetes_
+
+## Créditos
+
+Gráfico por [undraw](https://undraw.co)
+
+[gitter]: https://gitter.im/currofy/remote-dev
+[gitter-img]: https://img.shields.io/gitter/room/currofy/remote-dev?label=hablamos&logo=gitter
+[readme-en]: https://img.shields.io/badge/Read-in%20English-darkblue
